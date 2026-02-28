@@ -1,0 +1,13 @@
+{
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "singleAttributePerLine": true,
+  "htmlWhitespaceSensitivity": "strict",
+  "printWidth": 100,
+  "semi": false,
+  "useTabs": true,
+  "tabWidth": 4,
+  "vueIndentScriptAndStyle": true,
+  "arrowParens": "avoid",
+  "plugins": ["@prettier/plugin-php"]
+}
