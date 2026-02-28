@@ -22,10 +22,13 @@ use Database\Factories\PatientFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Patient extends BaseModel
+class Patient extends BaseModel implements HasMedia
 {
-  use HasFactory, HasUuids;
+  use HasFactory, HasUuids, InteractsWithMedia;
 
   protected $table = 'patient_patients';
 
@@ -39,7 +42,7 @@ class Patient extends BaseModel
     'settings' => 'array',
   ];
 
-  protected $appends = ['yo', 'current-weight', 'bmi'];
+  protected $appends = ['yo', 'current-weight', 'bmi', 'avatar_url'];
 
   protected static function newFactory(): Factory
   {
@@ -104,5 +107,25 @@ class Patient extends BaseModel
   public function getBmiAttribute(): float
   {
     return $this->weightEntries()->latest()->first()?->bmi ?? 0;
+  }
+
+  public function getAvatarUrlAttribute(): ?string
+  {
+    return $this->getFirstMediaUrl('avatar', 'thumb') ?: null;
+  }
+
+  public function registerMediaCollections(): void
+  {
+    $this->addMediaCollection('avatar')
+      ->singleFile()
+      ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+  }
+
+  public function registerMediaConversions(?Media $media = null): void
+  {
+    $this->addMediaConversion('thumb')
+      ->width(128)
+      ->height(128)
+      ->sharpen(10);
   }
 }
