@@ -17,10 +17,10 @@ class StoreNutritionController extends Controller
     public function __invoke(Patient $patient, Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'proteins_ok' => ['required', 'boolean'],
-            'vegetables_ok' => ['required', 'boolean'],
-            'hydration_ok' => ['required', 'boolean'],
-            'texture_ok' => ['required', 'boolean'],
+            'proteins_ok' => ['present', 'boolean'],
+            'vegetables_ok' => ['present', 'boolean'],
+            'hydration_ok' => ['present', 'boolean'],
+            'texture_ok' => ['present', 'boolean'],
             'notes' => ['nullable', 'string', 'max:1000'],
             'recorded_at' => ['nullable', 'date'],
         ]);

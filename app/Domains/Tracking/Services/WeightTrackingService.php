@@ -24,12 +24,9 @@ class WeightTrackingService
 
   public function getWeightHistory(Patient $patient, int $days = 30): Collection
   {
-    ray(WeightEntry::where('patient_id', $patient->id)
-      ->orderBy('recorded_at', 'desc')
-      ->get());
     return WeightEntry::where('patient_id', $patient->id)
       ->where('recorded_at', '>=', now()->subDays($days))
-      ->orderBy('recorded_at', 'desc')
+      ->orderBy('recorded_at', 'asc')
       ->get();
   }
 
