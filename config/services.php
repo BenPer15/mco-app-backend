@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    'anthropic' => [
+        'api_key' => env('ANTHROPIC_API_KEY'),
+        'model' => env('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514'),
+        'max_tokens' => 512,
+    ],
+
+    'openweathermap' => [
+        'api_key' => env('OPENWEATHERMAP_API_KEY'),
+        'base_url' => 'https://api.openweathermap.org/data/2.5',
+    ],
+
 ];

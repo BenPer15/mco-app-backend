@@ -18,6 +18,10 @@ use App\Http\Controllers\Api\Tracking\Nutrition\GetNutritionController;
 use App\Http\Controllers\Api\Gamification\GamificationSummaryController;
 use App\Http\Controllers\Api\Gamification\PatientAchievementsController;
 use App\Http\Controllers\Api\Gamification\AchievementCatalogController;
+use App\Http\Controllers\Api\Tracking\Steps\StoreStepsController;
+use App\Http\Controllers\Api\Tracking\Steps\GetDayStepsController;
+use App\Http\Controllers\Api\Coach\GetCoachMessageController;
+use App\Http\Controllers\Api\Coach\ReactCoachController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +63,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/current-week', CurrentWeekActivityController::class);
         });
 
+        // Steps
+        Route::prefix('steps')->name('steps.')->group(function () {
+            Route::post('/', StoreStepsController::class);
+            Route::get('/day', GetDayStepsController::class);
+        });
+
         // Nutrition
         Route::prefix('nutrition')->name('nutrition.')->group(function () {
             Route::post('/', StoreNutritionController::class);
@@ -70,6 +80,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/summary', GamificationSummaryController::class);
             Route::get('/achievements', PatientAchievementsController::class);
         });
+
+        // Coach
+        Route::get('/coach/message', GetCoachMessageController::class);
+        Route::post('/coach/react', ReactCoachController::class);
     });
 
     Route::get('/achievements', AchievementCatalogController::class);

@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
 
         $service->recordWeight($patient, [
             'weight' => 170,
-            'recorded_at' => now()->subDays(30)->format('Y-m-d H:i:s'),
+            'recorded_at' => now()->subDays(25)->format('Y-m-d H:i:s'),
         ]);
 
         $this->call(AchievementSeeder::class);
